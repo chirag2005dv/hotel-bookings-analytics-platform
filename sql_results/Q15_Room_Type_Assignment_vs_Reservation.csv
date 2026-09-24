@@ -1,0 +1,7 @@
+hotel,assignment_type,bookings,pct_of_hotel,avg_adr,cancellation_rate_pct
+City Hotel,Exact Match,71933,91.17,106.34,45.4
+City Hotel,Downgrade,6476,8.21,100.2,6.15
+City Hotel,Upgrade (lower letter = better),490,0.62,109.79,2.86
+Resort Hotel,Exact Match,32177,81.12,101.46,33.34
+Resort Hotel,Downgrade,7359,18.55,70.95,5.11
+Resort Hotel,Upgrade (lower letter = better),129,0.33,131.86,3.88

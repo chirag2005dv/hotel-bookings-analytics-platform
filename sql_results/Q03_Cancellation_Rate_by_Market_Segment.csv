@@ -1,0 +1,8 @@
+market_segment,total_bookings,canceled,cancellation_rate_pct,avg_adr_stayed,avg_lead_time_days
+Groups,19758,12093,61.21,77.62,187.2
+Online TA,56129,20723,36.92,114.9,83.3
+Offline TA/TO,24049,8301,34.52,84.26,135.6
+Aviation,231,51,22.08,102.25,4.5
+Corporate,5231,989,18.91,68.07,22.2
+Direct,12449,1930,15.5,115.49,50.2
+Complementary,715,87,12.17,3.17,13.8

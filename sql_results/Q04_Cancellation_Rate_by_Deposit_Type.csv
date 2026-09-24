@@ -1,0 +1,4 @@
+deposit_type,total_bookings,canceled,cancellation_rate_pct,avg_adr_stayed,avg_lead_time_days
+Non Refund,14587,14494,99.36,77.58,212.9
+No Deposit,103815,29646,28.56,101.09,89.2
+Refundable,162,36,22.22,68.64,152.1

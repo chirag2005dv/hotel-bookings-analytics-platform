@@ -1,0 +1,2 @@
+total_bookings,total_canceled,cancellation_rate_pct,total_checked_out,total_no_show,avg_adr_stayed,total_revenue_estimate,avg_lead_time_days,avg_length_of_stay,repeat_guest_rate_pct,room_match_rate_pct
+118564,44176,37.26,74388,1193,101.01,25986976.03,104.5,3.42,2.95,87.81

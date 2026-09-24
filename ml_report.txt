@@ -1,0 +1,53 @@
+Hotel Bookings — Phase 5 ML Pipeline Report
+=================================================================
+Objective   : Binary classification — predict is_canceled
+Dataset     : hotel_bookings_cleaned.csv  (118,564 rows)
+Train/Test  : 80% / 20% (stratified, random_state=42)
+Features    : 31 total (22 numeric, 9 encoded categorical)
+CV Strategy : StratifiedKFold(n_splits=5)
+
+--- LEAKAGE REMOVED ---
+  reservation_status
+  reservation_status_date
+  revenue_estimate
+  flag_adr_outlier
+  flag_long_lead_time
+  flag_zero_adr
+  arrival_date
+
+--- MODEL RESULTS (TEST SET) ---
+Model                      Accuracy  Precision   Recall       F1   ROC-AUC     CV AUC
+-------------------------------------------------------------------------------------
+Logistic Regression          0.7764     0.6884   0.7305   0.7088    0.8550  0.8534±0.0018
+Random Forest                0.8414     0.7941   0.7753   0.7846    0.9149  0.9126±0.0021
+Gradient Boosting            0.8359     0.7712   0.7957   0.7832    0.9157  0.9136±0.0021
+
+--- BEST MODEL: Gradient Boosting (ROC-AUC=0.9157) ---
+
+--- CLASSIFICATION REPORT (BEST MODEL, TEST SET) ---
+              precision    recall  f1-score   support
+
+Not Canceled       0.88      0.86      0.87     14878
+    Canceled       0.77      0.80      0.78      8835
+
+    accuracy                           0.84     23713
+   macro avg       0.82      0.83      0.83     23713
+weighted avg       0.84      0.84      0.84     23713
+
+--- TOP 15 FEATURE IMPORTANCES (Random Forest) ---
+                    feature  importance
+           deposit_type_enc    0.209427
+                  lead_time    0.129447
+  total_of_special_requests    0.100479
+         market_segment_enc    0.079094
+            room_type_match    0.071709
+     previous_cancellations    0.058527
+required_car_parking_spaces    0.053361
+          customer_type_enc    0.040843
+            booking_changes    0.038404
+                        adr    0.035303
+     assigned_room_type_enc    0.019098
+   distribution_channel_enc    0.017787
+   arrival_date_week_number    0.016447
+          arrival_date_year    0.015058
+  arrival_date_day_of_month    0.014041

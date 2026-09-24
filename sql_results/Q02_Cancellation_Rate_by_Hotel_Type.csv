@@ -1,0 +1,3 @@
+hotel,total_bookings,canceled,not_canceled,cancellation_rate_pct,avg_adr_stayed,avg_nights_stayed
+City Hotel,78899,33066,45833,41.91,106.62,2.93
+Resort Hotel,39665,11110,28555,28.01,92.01,4.2

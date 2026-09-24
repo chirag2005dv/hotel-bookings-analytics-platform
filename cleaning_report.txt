@@ -1,0 +1,112 @@
+Hotel Bookings — Phase 2 Data Cleaning Pipeline
+pandas 2.3.3  |  numpy 2.2.6
+
+======================================================================
+  STEP 1 — LOAD RAW DATA
+======================================================================
+  Rows loaded : 119,390
+  Columns     : 32
+  File        : hotel_bookings.csv
+
+======================================================================
+  STEP 2 — SCHEMA VALIDATION
+======================================================================
+  All 32 expected columns present. ✓
+
+======================================================================
+  STEP 3 — REPLACE 'NULL' STRINGS WITH NaN
+======================================================================
+  'NULL' string → NaN conversions (all columns): 129,421
+  Empty string → NaN conversions: 0
+
+======================================================================
+  STEP 4 — CAST DATA TYPES
+======================================================================
+  children  → float64 (NA strings → NaN; '10' kept as numeric)
+  is_canceled  → Int64
+  lead_time  → Int64
+  arrival_date_year  → Int64
+  arrival_date_week_number  → Int64
+  arrival_date_day_of_month  → Int64
+  stays_in_weekend_nights  → Int64
+  stays_in_week_nights  → Int64
+  adults  → Int64
+  babies  → Int64
+  is_repeated_guest  → Int64
+  previous_cancellations  → Int64
+  previous_bookings_not_canceled  → Int64
+  booking_changes  → Int64
+  days_in_waiting_list  → Int64
+  required_car_parking_spaces  → Int64
+  total_of_special_requests  → Int64
+  adr  → float64
+  hotel  → category
+  arrival_date_month  → category
+  meal  → category
+  country  → category
+  market_segment  → category
+  distribution_channel  → category
+  reserved_room_type  → category
+  assigned_room_type  → category
+  deposit_type  → category
+  customer_type  → category
+  reservation_status  → category
+  reservation_status_date → datetime64
+
+======================================================================
+  STEP 5 — HANDLE MISSING VALUES
+======================================================================
+  country: 488 nulls filled with 'Unknown'
+  agent: 16,340 nulls filled with '0'
+  company: 112,593 nulls filled with '0'
+  children: 4 nulls filled with 0
+  No remaining nulls after filling. ✓
+
+======================================================================
+  STEP 6 — INVALID / ANOMALOUS ROW REMOVAL
+======================================================================
+  Removed zero-night stays        : 715 rows
+  Removed zero-guest bookings     : 110 rows
+  Removed negative ADR rows       : 1 rows
+  Removed ADR > 5400.0 rows        : 0 rows
+  Total rows removed              : 826
+  Rows remaining                  : 118,564
+
+======================================================================
+  STEP 7 — OUTLIER FLAGGING (non-destructive)
+======================================================================
+  flag_adr_outlier  (ADR > 252.54): 1,164 rows
+  flag_long_lead_time (lead_time > 365)   : 3,144 rows
+  flag_zero_adr (ADR=0, non-compl.)       : 513 rows
+
+======================================================================
+  STEP 8 — FEATURE ENGINEERING
+======================================================================
+  total_nights = stays_in_weekend_nights + stays_in_week_nights
+  arrival_date constructed (0 parse failures)
+  room_type_match: 87.8% of bookings got their requested room type
+  is_high_season (Jun–Aug): 37,289 rows (31.5%)
+  revenue_estimate = adr × total_nights  (mean: 360.26)
+  total_guests = adults + children + babies  (mean: 1.97)
+
+======================================================================
+  STEP 9 — FINAL VALIDATION
+======================================================================
+  Final row count        : 118,564
+  Final column count     : 42
+  No unexpected nulls remaining. ✓
+  is_canceled values     : {np.int64(0): 74388, np.int64(1): 44176}
+  ADR range              : 0.00 – 5400.00
+  Lead time range        : 0 – 709
+  total_nights range     : 1 – 69
+  Hotel types            : {'City Hotel': 78899, 'Resort Hotel': 39665}
+  Date range             : 2015-07-01 – 2017-08-31
+  adr: no negative values. ✓
+  lead_time: no negative values. ✓
+  stays_in_weekend_nights: no negative values. ✓
+  stays_in_week_nights: no negative values. ✓
+
+======================================================================
+  STEP 10 — SAVE OUTPUT
+======================================================================
+  Saved: hotel_bookings_cleaned.csv  (19.83 MB, 118,564 rows, 42 columns)

@@ -1,0 +1,5 @@
+customer_type,total_bookings,canceled,cancellation_rate_pct,avg_adr_stayed,avg_lead_time_days,avg_nights_stayed
+Transient,88935,36473,41.01,106.02,93.8,3.4
+Contract,4056,1262,31.11,92.12,143.4,6.23
+Transient-Party,25004,6383,25.53,88.71,137.3,3.08
+Group,569,58,10.19,83.57,55.4,2.78

@@ -1,0 +1,84 @@
+Hotel Bookings — Phase 3 KPI Analytics Report
+=================================================================
+Dataset: hotel_bookings_cleaned.csv
+Total Bookings Analyzed: 118,564
+Date Range: 2015-07-01 to 2017-08-31
+
+--- CORE KPIs ---
+Overall Cancellation Rate    : 37.26%
+  - Total Canceled           : 44,176
+  - Total Checked Out        : 74,388
+  - Total No-Show            : 1,193
+
+Average Daily Rate (ADR)     : $101.01
+  - City Hotel ADR           : $106.62
+  - Resort Hotel ADR         : $92.01
+  - ADR Median               : $93.39
+
+Total Revenue Estimate       : $25,986,976
+Avg Revenue per Booking      : $349.34
+
+Avg Lead Time (All)          : 104.5 days
+Avg Lead Time (Canceled)     : 145.0 days
+Avg Lead Time (Not Canceled) : 80.5 days
+
+Avg Length of Stay           : 3.42 nights
+  - Weekend Nights           : 0.94
+  - Week Nights              : 2.48
+
+Repeat Guest Rate            : 2.95%
+Room Type Match Rate         : 87.81%
+Avg Special Requests/Booking : 0.57
+
+Peak Month (by volume)       : August
+Low Season Month             : January
+
+--- CANCELLATION BREAKDOWN ---
+By Hotel Type:
+  City Hotel          : 41.9%  (33,066 / 78,899)
+  Resort Hotel        : 28.0%  (11,110 / 39,665)
+
+By Deposit Type:
+  Non Refund          : 99.4%  (n=14,587)
+  No Deposit          : 28.6%  (n=103,815)
+  Refundable          : 22.2%  (n=162)
+
+By Lead Time Bucket:
+  0-7d                : 11.0%  (n=13,239)
+  8-30d               : 28.0%  (n=18,848)
+  31-90d              : 37.8%  (n=29,437)
+  91-180d             : 44.8%  (n=26,384)
+  181-365d            : 55.5%  (n=21,505)
+  365d+               : 67.7%  (n=3,144)
+
+By Market Segment:
+  Groups              : 61.2%  (n=19,758)
+  Online TA           : 36.9%  (n=56,129)
+  Offline TA/TO       : 34.5%  (n=24,049)
+  Aviation            : 22.1%  (n=231)
+  Corporate           : 18.9%  (n=5,231)
+  Direct              : 15.5%  (n=12,449)
+  Complementary       : 12.2%  (n=715)
+
+--- CHARTS PRODUCED ---
+  C1_cancellation_by_hotel.png
+  C2_cancellation_by_market_segment.png
+  C3_cancellation_by_deposit_type.png
+  C4_cancellation_by_lead_time_bucket.png
+  D1_monthly_adr_by_hotel.png
+  D2_adr_distribution.png
+  D3_adr_by_market_segment.png
+  D4_monthly_revenue_estimate.png
+  E1_volume_by_market_segment.png
+  E2_distribution_channel_mix.png
+  E3_segment_cancel_vs_adr.png
+  F1_lead_time_distribution.png
+  F2_cancellation_by_booking_changes.png
+  F3_cancellation_by_special_requests.png
+  G1_monthly_bookings_and_cancel_rate.png
+  G2_yearly_trends.png
+  G3_cancellation_heatmap_hotel_month.png
+  H1_top_countries.png
+  H2_length_of_stay_distribution.png
+  H3_meal_plan_by_hotel.png
+  H4_new_vs_repeat_guest_cancellation.png

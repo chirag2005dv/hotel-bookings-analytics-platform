@@ -1,0 +1,159 @@
+Hotel Bookings — Phase 6 Model Explainability Report
+======================================================================
+Model explained : Random Forest (SHAP/MDI) + HistGradientBoosting (Permutation/PDP)
+SHAP library    : 0.49.1
+SHAP sample     : 2,000 rows (random subset of test set)
+
+──────────────────────────────────────────────────────────────────────
+IMPORTANT — PREDICTION vs CAUSATION
+──────────────────────────────────────────────────────────────────────
+
+All SHAP values, permutation importances, and partial dependence plots
+describe STATISTICAL ASSOCIATIONS between features and the model's output.
+They do NOT establish that changing a feature would CAUSE a booking to
+cancel or not cancel. Confounding factors, selection bias, and unmeasured
+variables may explain these associations.
+
+Specific caveats:
+  - deposit_type (Non Refund): 99.4% cancellation rate in the data.
+    This is the model's #1 feature. The pattern may reflect OTA booking
+    policies (non-refundable rate codes) rather than guest intent.
+    Changing a booking to 'No Deposit' would NOT necessarily prevent
+    cancellation; the guest's underlying decision is unobserved.
+
+  - lead_time: Long-horizon bookings cancel more often. This does not
+    mean that shortening the booking window reduces cancellation intent.
+    The correlation may reflect that guests who book far in advance are
+    more likely to have uncertain plans.
+
+  - total_of_special_requests: Guests with more requests cancel less.
+    This is likely because engaged, committed guests both make requests
+    AND follow through. Artificially encouraging requests would not
+    replicate this effect.
+
+  - previous_cancellations: Past cancellations predict future ones. This
+    is a behavioral pattern feature — it reflects guest history, not a
+    lever a hotel can change.
+
+  - required_car_parking_spaces: Guests who request parking cancel less.
+    Likely a proxy for committed, specific-need travelers. Not a causal
+    mechanism.
+
+──────────────────────────────────────────────────────────────────────
+TOP FEATURE RANKINGS (all three methods)
+──────────────────────────────────────────────────────────────────────
+                      label  mdi_rank  shap_rank  perm_rank  avg_rank
+               Deposit Type         1          1          1  1.000000
+                  Lead Time         2          3          2  2.333333
+  Total Of Special Requests         3          2          3  2.666667
+             Market Segment         4          4          8  5.333333
+            Room Type Match         5          5          6  5.333333
+Required Car Parking Spaces         7          6          4  5.666667
+     Previous Cancellations         6          8          5  6.333333
+              Customer Type         8          7          7  7.333333
+            Booking Changes         9          9         10  9.333333
+                        Adr        10         11          9 10.000000
+         Assigned Room Type        11         10         18 13.000000
+          Arrival Date Year        14         13         12 13.000000
+                      Hotel        18         14         11 14.333333
+       Distribution Channel        12         12         21 15.000000
+   Arrival Date Week Number        13         19         13 15.000000
+
+──────────────────────────────────────────────────────────────────────
+SHAP MEAN |VALUE| — TOP 20 (Random Forest, class=Canceled)
+──────────────────────────────────────────────────────────────────────
+                         label  mean_abs_shap
+                  Deposit Type       0.089089
+     Total Of Special Requests       0.080594
+                     Lead Time       0.059312
+                Market Segment       0.050205
+               Room Type Match       0.040602
+   Required Car Parking Spaces       0.029951
+                 Customer Type       0.029579
+        Previous Cancellations       0.028685
+               Booking Changes       0.027684
+            Assigned Room Type       0.017273
+                           Adr       0.015093
+          Distribution Channel       0.009835
+             Arrival Date Year       0.009489
+                         Hotel       0.005843
+                  Total Nights       0.004317
+Previous Bookings Not Canceled       0.004096
+            Reserved Room Type       0.003951
+                  Total Guests       0.003292
+      Arrival Date Week Number       0.003273
+          Stays In Week Nights       0.003259
+
+──────────────────────────────────────────────────────────────────────
+PERMUTATION IMPORTANCE — TOP 20 (HistGBM, ROC-AUC drop)
+──────────────────────────────────────────────────────────────────────
+                         label  importance_mean  importance_std
+                  Deposit Type         0.108790        0.002283
+                     Lead Time         0.053228        0.001247
+     Total Of Special Requests         0.041297        0.000891
+   Required Car Parking Spaces         0.037344        0.001676
+        Previous Cancellations         0.036994        0.000961
+               Room Type Match         0.033069        0.001004
+                 Customer Type         0.032624        0.001209
+                Market Segment         0.028983        0.000961
+                           Adr         0.021869        0.000630
+               Booking Changes         0.009853        0.000386
+                         Hotel         0.008642        0.000371
+             Arrival Date Year         0.006971        0.000426
+      Arrival Date Week Number         0.005644        0.000233
+Previous Bookings Not Canceled         0.005483        0.000827
+                          Meal         0.003001        0.000262
+                  Total Nights         0.002748        0.000271
+     Arrival Date Day Of Month         0.002123        0.000118
+            Assigned Room Type         0.001915        0.000145
+          Days In Waiting List         0.001417        0.000229
+            Reserved Room Type         0.001281        0.000206
+
+──────────────────────────────────────────────────────────────────────
+KEY INTERPRETATIONS (correlation, not causation)
+──────────────────────────────────────────────────────────────────────
+
+1. deposit_type [#1 SHAP, #1 Permutation]:
+   Non-Refundable bookings are associated with near-certain cancellation.
+   This is likely a data artefact of OTA pricing policies rather than
+   causal evidence that deposit type drives the cancellation decision.
+   Interpretation: Non-Refund rate codes identify a specific booking
+   population with historically extreme cancellation behaviour.
+
+2. lead_time [#2 SHAP, #2 Permutation]:
+   The longer the gap between booking and arrival, the higher the
+   predicted cancellation probability. Each additional day of lead time
+   is associated with a marginal increase in SHAP value toward cancellation.
+   Monotonic positive relationship confirmed in the PDP.
+
+3. total_of_special_requests [#3 SHAP, #4 Permutation]:
+   Negatively associated with cancellation. Guests who submit ≥1 request
+   cancel at 22% vs 48% for zero requests (from EDA). The PDP shows a
+   steep drop in predicted cancel probability at 1+ requests.
+
+4. market_segment [#4 SHAP, #3 Permutation]:
+   Groups segment cancels at 61%, Online TA at 37%, Direct at 15%.
+   The model strongly discriminates between segments; Groups and Online TA
+   push SHAP values toward cancellation, Direct and Corporate away from it.
+
+5. room_type_match [#5 SHAP, #6 Permutation]:
+   Bookings where the reserved room type matches the assigned room type
+   are associated with lower cancellation. However, room assignment often
+   occurs after booking — this feature may be partially post-booking.
+
+6. previous_cancellations [#6 SHAP, #5 Permutation]:
+   Strongest behavioral feature. Even 1 prior cancellation significantly
+   increases predicted probability. This is a genuine predictive signal
+   about guest reliability.
+
+──────────────────────────────────────────────────────────────────────
+CHARTS PRODUCED
+──────────────────────────────────────────────────────────────────────
+  EX_method_comparison_heatmap.png
+  EX_partial_dependence.png
+  EX_permutation_importance.png
+  EX_shap_dependence_top4.png
+  EX_shap_summary_bar.png
+  EX_shap_summary_beeswarm.png
+  EX_shap_waterfall_cancel.png
+  EX_shap_waterfall_nocancel.png

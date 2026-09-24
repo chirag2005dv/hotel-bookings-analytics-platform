@@ -1,0 +1,32 @@
+feature,label,mean_abs_shap
+deposit_type_enc,Deposit Type,0.0890888906861502
+total_of_special_requests,Total Of Special Requests,0.0805936228460021
+lead_time,Lead Time,0.05931213969016061
+market_segment_enc,Market Segment,0.05020525052017868
+room_type_match,Room Type Match,0.0406023085279639
+required_car_parking_spaces,Required Car Parking Spaces,0.029951070525859897
+customer_type_enc,Customer Type,0.0295792573648033
+previous_cancellations,Previous Cancellations,0.028684511666960705
+booking_changes,Booking Changes,0.027683783207497908
+assigned_room_type_enc,Assigned Room Type,0.017272655944605905
+adr,Adr,0.015092895673381273
+distribution_channel_enc,Distribution Channel,0.00983490975301433
+arrival_date_year,Arrival Date Year,0.009489198535270131
+hotel_enc,Hotel,0.0058428073239551875
+total_nights,Total Nights,0.004316873244134795
+previous_bookings_not_canceled,Previous Bookings Not Canceled,0.004096027030118515
+reserved_room_type_enc,Reserved Room Type,0.0039512143774914
+total_guests,Total Guests,0.003292008139755557
+arrival_date_week_number,Arrival Date Week Number,0.0032728026171042137
+stays_in_week_nights,Stays In Week Nights,0.0032589498210183754
+arrival_date_month_enc,Arrival Date Month,0.0030128401543996785
+adults,Adults,0.003007679715449532
+arrival_date_day_of_month,Arrival Date Day Of Month,0.0024337632134956775
+arrival_month_num,Arrival Month Num,0.0024262661007694985
+meal_enc,Meal,0.0019835695732711056
+children,Children,0.0019710272894310084
+stays_in_weekend_nights,Stays In Weekend Nights,0.0018333094646958382
+is_high_season,Is High Season,0.0015779880343553467
+is_repeated_guest,Is Repeated Guest,0.001106514562511516
+days_in_waiting_list,Days In Waiting List,0.0004038750844508998
+babies,Babies,2.2213445668959845e-05

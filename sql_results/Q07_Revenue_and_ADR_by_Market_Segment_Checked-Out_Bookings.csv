@@ -1,0 +1,8 @@
+market_segment,stayed_bookings,total_revenue,avg_revenue_per_booking,avg_adr,avg_nights,revenue_share_pct
+Online TA,35406,13707139.09,387.14,114.9,3.35,52.75
+Offline TA/TO,15748,5659291.94,359.37,84.26,4.3,21.78
+Direct,10519,4097842.4,389.57,115.49,3.11,15.77
+Groups,7665,1869129.52,243.85,77.62,3.24,7.19
+Corporate,4242,577892.19,136.23,68.07,2.01,2.22
+Aviation,180,70868.36,393.71,102.25,3.84,0.27
+Complementary,628,4812.53,7.66,3.17,1.73,0.02

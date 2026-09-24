@@ -1,0 +1,259 @@
+Hotel Bookings — Phase 4 SQL Analytics Report
+======================================================================
+Engine : SQLite (Python built-in sqlite3)
+Source : hotel_bookings_cleaned.csv
+Queries: 20
+
+──────────────────────────────────────────────────────────────────────
+[Q01] Core KPI Snapshot
+──────────────────────────────────────────────────────────────────────
+ total_bookings  total_canceled  cancellation_rate_pct  total_checked_out  total_no_show  avg_adr_stayed  total_revenue_estimate  avg_lead_time_days  avg_length_of_stay  repeat_guest_rate_pct  room_match_rate_pct
+         118564           44176                  37.26              74388           1193          101.01             25986976.03               104.5                3.42                   2.95                87.81
+
+──────────────────────────────────────────────────────────────────────
+[Q02] Cancellation Rate by Hotel Type
+──────────────────────────────────────────────────────────────────────
+       hotel  total_bookings  canceled  not_canceled  cancellation_rate_pct  avg_adr_stayed  avg_nights_stayed
+  City Hotel           78899     33066         45833                  41.91          106.62               2.93
+Resort Hotel           39665     11110         28555                  28.01           92.01               4.20
+
+──────────────────────────────────────────────────────────────────────
+[Q03] Cancellation Rate by Market Segment
+──────────────────────────────────────────────────────────────────────
+market_segment  total_bookings  canceled  cancellation_rate_pct  avg_adr_stayed  avg_lead_time_days
+        Groups           19758     12093                  61.21           77.62               187.2
+     Online TA           56129     20723                  36.92          114.90                83.3
+ Offline TA/TO           24049      8301                  34.52           84.26               135.6
+      Aviation             231        51                  22.08          102.25                 4.5
+     Corporate            5231       989                  18.91           68.07                22.2
+        Direct           12449      1930                  15.50          115.49                50.2
+ Complementary             715        87                  12.17            3.17                13.8
+
+──────────────────────────────────────────────────────────────────────
+[Q04] Cancellation Rate by Deposit Type
+──────────────────────────────────────────────────────────────────────
+deposit_type  total_bookings  canceled  cancellation_rate_pct  avg_adr_stayed  avg_lead_time_days
+  Non Refund           14587     14494                  99.36           77.58               212.9
+  No Deposit          103815     29646                  28.56          101.09                89.2
+  Refundable             162        36                  22.22           68.64               152.1
+
+──────────────────────────────────────────────────────────────────────
+[Q05] Cancellation Rate by Lead Time Bucket
+──────────────────────────────────────────────────────────────────────
+lead_time_bucket  total_bookings  canceled  cancellation_rate_pct  avg_lead_time_days
+         01_0-7d           19246      1873                   9.73                 2.4
+        02_8-30d           18848      5277                  28.00                17.9
+       03_31-90d           29437     11137                  37.83                57.3
+      04_91-180d           26384     11818                  44.79               132.1
+     05_181-365d           21505     11942                  55.53               253.4
+        06_365d+            3144      2129                  67.72               440.4
+
+──────────────────────────────────────────────────────────────────────
+[Q06] Cancellation Rate by Customer Type
+──────────────────────────────────────────────────────────────────────
+  customer_type  total_bookings  canceled  cancellation_rate_pct  avg_adr_stayed  avg_lead_time_days  avg_nights_stayed
+      Transient           88935     36473                  41.01          106.02                93.8               3.40
+       Contract            4056      1262                  31.11           92.12               143.4               6.23
+Transient-Party           25004      6383                  25.53           88.71               137.3               3.08
+          Group             569        58                  10.19           83.57                55.4               2.78
+
+──────────────────────────────────────────────────────────────────────
+[Q07] Revenue and ADR by Market Segment (Checked-Out Bookings)
+──────────────────────────────────────────────────────────────────────
+market_segment  stayed_bookings  total_revenue  avg_revenue_per_booking  avg_adr  avg_nights  revenue_share_pct
+     Online TA            35406    13707139.09                   387.14   114.90        3.35              52.75
+ Offline TA/TO            15748     5659291.94                   359.37    84.26        4.30              21.78
+        Direct            10519     4097842.40                   389.57   115.49        3.11              15.77
+        Groups             7665     1869129.52                   243.85    77.62        3.24               7.19
+     Corporate             4242      577892.19                   136.23    68.07        2.01               2.22
+      Aviation              180       70868.36                   393.71   102.25        3.84               0.27
+ Complementary              628        4812.53                     7.66     3.17        1.73               0.02
+
+──────────────────────────────────────────────────────────────────────
+[Q08] Monthly ADR Trend by Hotel Type
+──────────────────────────────────────────────────────────────────────
+arrival_date_month  arrival_month_num  city_hotel_adr  resort_hotel_adr  overall_avg_adr  bookings
+           January                  1           82.92             49.58            67.88      4068
+          February                  2           87.29             54.62            73.22      5312
+             March                  3           91.15             57.71            78.21      6569
+             April                  4          112.24             76.47            98.38      6530
+               May                  5          121.63             77.82           106.07      7029
+              June                  6          118.15            109.37           115.37      6359
+              July                  7          116.23            152.06           130.37      7850
+            August                  8          119.01            183.12           143.10      8575
+         September                  9          113.15             96.79           107.76      6363
+           October                 10          102.96             62.80            88.04      6819
+          November                 11           87.83             49.51            71.62      4592
+          December                 12           89.04             70.22            80.50      4322
+
+──────────────────────────────────────────────────────────────────────
+[Q09] Monthly Booking Volume and Cancellation Rate
+──────────────────────────────────────────────────────────────────────
+ arrival_month_num arrival_date_month  total_bookings  canceled  checked_out_or_active  cancellation_rate_pct  avg_adr_all  monthly_revenue_est
+                 1            January            5871      1803                   4068                  30.71        71.05            776289.18
+                 2           February            7998      2686                   5312                  33.58        74.21           1146666.71
+                 3              March            9715      3146                   6569                  32.38        81.33           1651786.15
+                 4              April           11045      4515                   6530                  40.88       100.77           2099038.72
+                 5                May           11704      4675                   7029                  39.94       109.48           2394403.20
+                 6               June           10891      4532                   6359                  41.61       117.17           2582538.52
+                 7               July           12586      4736                   7850                  37.63       127.53           4099546.74
+                 8             August           13812      5237                   8575                  37.92       140.75           4915488.46
+                 9          September           10477      4114                   6363                  39.27       105.36           2343568.02
+                10            October           11064      4245                   6819                  38.37        88.67           1856816.72
+                11           November            6712      2120                   4592                  31.59        74.62           1033792.99
+                12           December            6689      2367                   4322                  35.39        82.17           1087040.62
+
+──────────────────────────────────────────────────────────────────────
+[Q10] Year-over-Year Revenue and ADR Trends
+──────────────────────────────────────────────────────────────────────
+ arrival_date_year  total_bookings  canceled  stayed  cancellation_rate_pct  avg_adr_stayed  total_revenue  avg_revenue_per_booking
+              2015           21820      8140   13680                  37.31           89.84     4511541.11                   329.79
+              2016           56235     20306   35929                  36.11           97.67    11666705.28                   324.72
+              2017           40509     15730   24779                  38.83          112.02     9808729.64                   395.85
+
+──────────────────────────────────────────────────────────────────────
+[Q11] Top 15 Countries by Booking Volume and Cancellation Rate
+──────────────────────────────────────────────────────────────────────
+country  total_bookings  canceled  cancellation_rate_pct  avg_adr_stayed  total_revenue_est
+    PRT           47943     27494                  57.35           93.06         5540431.72
+    GBR           12094      2451                  20.27           90.76         4110896.61
+    FRA           10389      1932                  18.60          106.04         3098418.27
+    ESP            8544      2176                  25.47          110.69         2246305.29
+    DEU            7285      1218                  16.72          101.29         2068219.65
+    ITA            3756      1332                  35.46          111.17          866439.42
+    IRL            3373       832                  24.67           94.77         1240002.35
+    BEL            2338       473                  20.23          111.66          759145.06
+    BRA            2217       829                  37.39          108.00          474782.78
+    NLD            2101       387                  18.42          105.19          631636.11
+    USA            2089       501                  23.98          119.57          490513.16
+    CHE            1724       428                  24.83          117.40          547591.16
+     CN            1278       254                  19.87          103.98          385436.50
+    AUT            1262       229                  18.15          102.94          372529.74
+    SWE            1019       227                  22.28          110.67          334983.15
+
+──────────────────────────────────────────────────────────────────────
+[Q12] Distribution Channel Performance
+──────────────────────────────────────────────────────────────────────
+distribution_channel  total_bookings  cancellation_rate_pct  avg_adr_stayed  total_revenue_est  avg_lead_time_days
+               TA/TO           97335                  41.22          102.49        20802010.34               115.6
+              Direct           14450                  17.65          107.68         4323529.31                58.3
+           Corporate            6584                  22.21           68.31          827864.92                45.1
+                 GDS             190                  19.47          122.29           33007.96                21.0
+
+──────────────────────────────────────────────────────────────────────
+[Q13] Length of Stay by Hotel and Market Segment
+──────────────────────────────────────────────────────────────────────
+       hotel market_segment  bookings  avg_total_nights  avg_weekend_nights  avg_week_nights  avg_adr
+  City Hotel       Aviation       180              3.84                1.13             2.71   102.25
+  City Hotel      Online TA     24096              3.11                0.87             2.24   118.19
+  City Hotel  Offline TA/TO      9477              3.02                0.80             2.22    90.65
+  City Hotel         Direct      4963              2.75                0.74             2.01   121.11
+  City Hotel         Groups      4335              2.64                0.77             1.88    84.67
+  City Hotel      Corporate      2322              1.86                0.42             1.44    82.60
+  City Hotel  Complementary       460              1.56                0.33             1.23     2.81
+Resort Hotel  Offline TA/TO      6271              6.23                1.80             4.44    74.59
+Resort Hotel         Groups      3330              4.01                1.00             3.01    68.43
+Resort Hotel      Online TA     11310              3.87                1.08             2.79   107.88
+Resort Hotel         Direct      5556              3.43                0.92             2.51   110.48
+Resort Hotel      Corporate      1920              2.19                0.43             1.76    50.49
+Resort Hotel  Complementary       168              2.18                0.48             1.71     4.15
+
+──────────────────────────────────────────────────────────────────────
+[Q14] Repeat vs New Guest Performance
+──────────────────────────────────────────────────────────────────────
+  guest_type  total_bookings  cancellation_rate_pct  avg_adr_stayed  avg_nights_stayed  total_revenue_est  avg_special_requests  avg_lead_time_days
+Repeat Guest            3498                  15.69           69.43               2.04          484609.40                  0.65                33.3
+   New Guest          115066                  37.91          102.31               3.48        25502366.63                  0.57               106.7
+
+──────────────────────────────────────────────────────────────────────
+[Q15] Room Type Assignment vs Reservation
+──────────────────────────────────────────────────────────────────────
+       hotel                 assignment_type  bookings  pct_of_hotel  avg_adr  cancellation_rate_pct
+  City Hotel                     Exact Match     71933         91.17   106.34                  45.40
+  City Hotel                       Downgrade      6476          8.21   100.20                   6.15
+  City Hotel Upgrade (lower letter = better)       490          0.62   109.79                   2.86
+Resort Hotel                     Exact Match     32177         81.12   101.46                  33.34
+Resort Hotel                       Downgrade      7359         18.55    70.95                   5.11
+Resort Hotel Upgrade (lower letter = better)       129          0.33   131.86                   3.88
+
+──────────────────────────────────────────────────────────────────────
+[Q16] Deposit Type Revenue Impact (Stayed Bookings Only)
+──────────────────────────────────────────────────────────────────────
+deposit_type  stayed_bookings  avg_adr  avg_nights  total_revenue  avg_revenue_per_booking
+  No Deposit            74169   101.09        3.42    25940878.95                   349.75
+  Refundable              126    68.64        3.40       28987.21                   230.06
+  Non Refund               93    77.58        2.29       17109.87                   183.98
+
+──────────────────────────────────────────────────────────────────────
+[Q17] Lead Time Buckets vs Revenue and ADR (Stayed Bookings)
+──────────────────────────────────────────────────────────────────────
+      lead_time_bucket  stayed_bookings  avg_adr  avg_nights  avg_revenue_per_booking  total_revenue
+   01_0-7d (same-week)            17373    91.65        2.01                   189.48     3291878.63
+    02_8-30d (1 month)            13571   105.39        3.02                   319.73     4338994.34
+   03_31-90d (quarter)            18300   104.47        3.66                   382.74     7004232.82
+04_91-180d (half-year)            14566   106.52        4.37                   464.67     6768390.41
+  05_181-365d (annual)             9563    97.06        4.66                   449.18     4295543.55
+ 06_365d+ (long-range)             1015    98.39        3.08                   283.68      287936.28
+
+──────────────────────────────────────────────────────────────────────
+[Q18] Special Requests vs Cancellation Rate and ADR
+──────────────────────────────────────────────────────────────────────
+ total_of_special_requests  total_bookings  canceled  cancellation_rate_pct  avg_adr_stayed  avg_nights_stayed
+                         0           69799     33521                  48.03           90.97               3.27
+                         1           33005      7307                  22.14          106.29               3.48
+                         2           12894      2865                  22.22          117.88               3.64
+                         3            2486       445                  17.90          124.92               3.98
+                         4             340        36                  10.59          131.90               4.32
+                         5              40         2                   5.00          128.23               4.63
+
+──────────────────────────────────────────────────────────────────────
+[Q19] Year x Month Booking Volume and ADR Heatmap Grid
+──────────────────────────────────────────────────────────────────────
+ arrival_date_year  arrival_month_num arrival_date_month  total_bookings  canceled  cancellation_rate_pct  avg_adr_stayed  monthly_revenue_est
+              2015                  7               July            2754      1259                  45.72          111.21            758339.79
+              2015                  8             August            3863      1598                  41.37          115.60           1137652.71
+              2015                  9          September            5098      2093                  41.06           98.82           1054620.67
+              2015                 10            October            4916      1732                  35.23           80.51            784714.88
+              2015                 11           November            2313       486                  21.01           59.61            346691.49
+              2015                 12           December            2876       972                  33.80           72.86            429521.57
+              2016                  1            January            2221       554                  24.94           62.64            264521.38
+              2016                  2           February            3856      1331                  34.52           69.56            483833.10
+              2016                  3              March            4782      1475                  30.84           75.23            767310.38
+              2016                  4              April            5397      2057                  38.11           87.14            895772.62
+              2016                  5                May            5413      1914                  35.36           96.59           1072667.19
+              2016                  6               June            5259      2094                  39.82          105.27           1144800.38
+              2016                  7               July            4534      1493                  32.93          128.12           1524476.34
+              2016                  8             August            5034      1825                  36.25          145.39           1807654.15
+              2016                  9          September            5379      2021                  37.57          115.77           1288947.35
+              2016                 10            October            6148      2513                  40.88           94.64           1072101.84
+              2016                 11           November            4399      1634                  37.14           79.55            687101.50
+              2016                 12           December            3813      1395                  36.59           86.51            657519.05
+              2017                  1            January            3650      1249                  34.22           71.52            511767.80
+              2017                  2           February            4142      1355                  32.71           76.54            662833.61
+              2017                  3              March            4933      1671                  33.87           81.23            884475.77
+              2017                  4              April            5648      2458                  43.52          110.15           1203266.10
+              2017                  5                May            6291      2761                  43.89          115.46           1321736.01
+              2017                  6               June            5632      2438                  43.29          125.38           1437738.14
+              2017                  7               July            5298      1984                  37.45          141.07           1816730.61
+              2017                  8             August            4915      1814                  36.91          160.83           1970181.60
+
+──────────────────────────────────────────────────────────────────────
+[Q20] High-Value Booking Profile (Top 10% by Revenue)
+──────────────────────────────────────────────────────────────────────
+                    segment  bookings  avg_adr  avg_nights  avg_revenue  total_revenue  avg_lead_time  avg_special_requests  min_revenue_threshold
+   Top 10% Revenue Bookings      7443   159.32        7.64      1097.06     8165449.81          112.8                  0.98                  711.0
+Bottom 90% Revenue Bookings     66945    94.52        2.95       266.21    17821526.22           76.9                  0.69                    NaN
+
+======================================================================
+CROSS-VALIDATION: SQL Results vs Phase 3 KPIs
+======================================================================
+  PASS  total_bookings                       SQL=118564  Expected=118564  |diff|=0.0000
+  PASS  total_canceled                       SQL=44176  Expected=44176  |diff|=0.0000
+  PASS  cancellation_rate_pct                SQL=37.26  Expected=37.26  |diff|=0.0000
+  PASS  avg_adr_stayed                       SQL=101.01  Expected=101.01  |diff|=0.0000
+  PASS  total_revenue_estimate               SQL=25986976.03  Expected=25986976.03  |diff|=0.0000
+  PASS  avg_lead_time_days                   SQL=104.5  Expected=104.5  |diff|=0.0000
+  PASS  repeat_guest_rate_pct                SQL=2.95  Expected=2.95  |diff|=0.0000
+  PASS  room_match_rate_pct                  SQL=87.81  Expected=87.81  |diff|=0.0000
+
+  Overall: ALL CHECKS PASSED

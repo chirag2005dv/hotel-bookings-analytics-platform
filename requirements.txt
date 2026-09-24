@@ -1,0 +1,30 @@
+# requirements.txt
+# Hotel Bookings Analytics Platform
+# Generated from actual installed environment (Python 3.10.10, Windows 10)
+#
+# Install all dependencies:
+#   pip install -r requirements.txt
+
+# Core data processing
+pandas==2.3.3
+numpy==2.2.6
+
+# Visualisation
+matplotlib==3.10.8
+seaborn==0.13.2
+plotly==7.1.0
+
+# Machine learning & explainability
+scikit-learn==1.7.2
+joblib==1.6.0
+shap==0.49.1
+
+# Dashboard
+streamlit==1.63.0
+
+# AI integration
+openai==3.19.0
+python-dotenv==1.2.1
+
+# Testing
+pytest==8.4.2

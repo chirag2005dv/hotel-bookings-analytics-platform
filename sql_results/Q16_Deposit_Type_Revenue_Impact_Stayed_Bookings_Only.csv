@@ -1,0 +1,4 @@
+deposit_type,stayed_bookings,avg_adr,avg_nights,total_revenue,avg_revenue_per_booking
+No Deposit,74169,101.09,3.42,25940878.95,349.75
+Refundable,126,68.64,3.4,28987.21,230.06
+Non Refund,93,77.58,2.29,17109.87,183.98
