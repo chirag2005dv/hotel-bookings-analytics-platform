@@ -1,6 +1,8 @@
+from pathlib import Path
 import pandas as pd
 
-df = pd.read_csv("hotel_bookings_cleaned.csv")
+ROOT = Path(__file__).parent.parent
+df = pd.read_csv(ROOT / "data" / "processed" / "hotel_bookings_cleaned.csv")
 
 print("=== SHAPE ===")
 print(f"Rows: {len(df):,}  Cols: {df.shape[1]}")

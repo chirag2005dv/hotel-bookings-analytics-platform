@@ -1,4 +1,4 @@
-﻿# 🏨 Hotel Bookings Analytics Platform
+# 🏨 Hotel Bookings Analytics Platform
 
 <div align="center">
 
@@ -19,36 +19,36 @@
 ## 📸 Screenshots
 
 ### 📊 Overview Tab — KPI Tiles & Yearly Trends
-![Overview Tab](dashboard_screenshots/tab_01_overview.png)
+![Overview Tab](screenshots/tab_01_overview.png)
 
 ### ❌ Cancellation Analysis Tab
-![Cancellation Tab](dashboard_screenshots/tab_02_cancellation.png)
+![Cancellation Tab](screenshots/tab_02_cancellation.png)
 
 ### 💰 Revenue & ADR Tab
-![Revenue Tab](dashboard_screenshots/tab_03_revenue_adr.png)
+![Revenue Tab](screenshots/tab_03_revenue_adr.png)
 
 ### 🔍 Market Segments Tab
-![Segments Tab](dashboard_screenshots/tab_04_segments.png)
+![Segments Tab](screenshots/tab_04_segments.png)
 
 ### 🤖 ML Prediction Tab — Live Cancellation Probability
-![ML Prediction Tab](dashboard_screenshots/tab_05_ml_prediction.png)
+![ML Prediction Tab](screenshots/tab_05_ml_prediction.png)
 
 The interactive prediction form lets users input booking details and get a real-time cancellation probability gauge:
 
 | Prediction Form | Result |
 |:-:|:-:|
-| ![ML Form](dashboard_screenshots/tab_05_ml_prediction_form.png) | ![ML Result](dashboard_screenshots/tab_05_ml_prediction_result.png) |
+| ![ML Form](screenshots/tab_05_ml_prediction_form.png) | ![ML Result](screenshots/tab_05_ml_prediction_result.png) |
 
 ### 🔬 Model Explainability Tab — SHAP & Feature Importance
-![Explainability Tab](dashboard_screenshots/tab_06_explainability.png)
+![Explainability Tab](screenshots/tab_06_explainability.png)
 
 ### 💡 AI Insights Tab — GPT-Powered Natural Language Analysis
-![AI Insights Tab](dashboard_screenshots/tab_07_ai_insights.png)
+![AI Insights Tab](screenshots/tab_07_ai_insights.png)
 
 ### 🔘 Sidebar Filters — Hotel Type, Year & Segment
 | City Hotel Filter | Resort Hotel Filter | Year 2016 Filter |
 |:-:|:-:|:-:|
-| ![City Hotel](dashboard_screenshots/filter_city_hotel.png) | ![Resort Hotel](dashboard_screenshots/filter_resort_hotel.png) | ![Year 2016](dashboard_screenshots/filter_year_2016.png) |
+| ![City Hotel](screenshots/filter_city_hotel.png) | ![Resort Hotel](screenshots/filter_resort_hotel.png) | ![Year 2016](screenshots/filter_year_2016.png) |
 
 ---
 
@@ -98,33 +98,53 @@ The primary business objective is **predicting hotel booking cancellations** (`i
 ```
 hotel-bookings-analytics-platform/
 │
-├── hotel_bookings.csv              # Raw dataset (do not modify)
-├── hotel_bookings_cleaned.csv      # Cleaned, feature-engineered dataset
+├── README.md                           # Project documentation
+├── LICENSE                             # MIT License
+├── .gitignore
+├── .env.example                        # API key template
+├── requirements.txt                    # Pinned dependencies
+├── pytest.ini                          # pytest configuration
 │
-├── data_cleaning.py                # Phase 2: cleaning pipeline
-├── eda_analysis.py                 # Phase 3: EDA + KPI charts
-├── hotel_queries.sql               # Phase 4: 20 SQL analytical queries
-├── sql_analytics.py                # Phase 4: SQL runner + cross-validator
-├── ml_pipeline.py                  # Phase 5: ML training + evaluation
-├── explainability.py               # Phase 6: SHAP + permutation + PDP
-├── dashboard.py                    # Phase 7+8: Streamlit dashboard
-├── ai_insights.py                  # Phase 8: AI integration layer
+├── src/                                # Core pipeline scripts
+│   ├── data_cleaning.py                #   Phase 2: cleaning pipeline
+│   ├── eda_analysis.py                 #   Phase 3: EDA + KPI charts
+│   ├── sql_analytics.py                #   Phase 4: SQL runner + cross-validator
+│   ├── ml_pipeline.py                  #   Phase 5: ML training + evaluation
+│   ├── explainability.py               #   Phase 6: SHAP + permutation + PDP
+│   ├── dashboard.py                    #   Phase 7+8: Streamlit dashboard
+│   ├── ai_insights.py                  #   Phase 8: AI integration layer
+│   └── validate_cleaned.py             #   Quick data validation script
 │
-├── requirements.txt                # Pinned dependencies
-├── .env.example                    # API key template
-├── PREPROCESSING_DECISIONS.md      # Documented cleaning decisions
+├── audits/                             # Per-phase audit scripts
+│   ├── audit2_eda.py
+│   ├── audit3_sql.py
+│   ├── audit4_ml.py
+│   ├── audit5_explainability.py
+│   ├── audit6_dashboard.py
+│   └── audit7_ai_security.py
 │
-├── plots/                          # All generated charts (PNG, 33 total)
-├── dashboard_screenshots/          # Dashboard UI screenshots (14 PNG)
-├── models/                         # Trained model artifacts
-├── sql_results/                    # SQL query result CSVs (20 files)
-├── tests/                          # pytest test suite (73 tests)
+├── data/                               # Dataset files
+│   ├── raw/
+│   │   └── hotel_bookings.csv          #   Original dataset (gitignored, ~16MB)
+│   └── processed/
+│       └── hotel_bookings_cleaned.csv  #   Cleaned dataset (gitignored, ~20MB)
 │
-├── cleaning_report.txt             # Per-step audit log
-├── kpi_report.txt                  # KPI output from EDA
-├── sql_results_report.txt          # Full SQL results report
-├── ml_report.txt                   # ML evaluation report
-└── explainability_report.txt       # Explainability findings
+├── sql/
+│   └── hotel_queries.sql               # 20 annotated SQL analytical queries
+│
+├── reports/                            # Generated reports & documentation
+│   ├── cleaning_report.txt
+│   ├── kpi_report.txt
+│   ├── ml_report.txt
+│   ├── explainability_report.txt
+│   ├── sql_results_report.txt
+│   └── PREPROCESSING_DECISIONS.md
+│
+├── models/                             # Trained model artifacts
+├── plots/                              # All generated charts (PNG, 33 total)
+├── screenshots/                        # Dashboard UI screenshots (14 PNG)
+├── sql_results/                        # SQL query result CSVs (20 files)
+└── tests/                              # pytest test suite (73 tests)
 ```
 
 ---
@@ -171,22 +191,22 @@ Run phases in order. Each phase is independent and idempotent.
 
 ```bash
 # Phase 2 — Data Cleaning
-python data_cleaning.py
+python src/data_cleaning.py
 
 # Phase 3 — EDA & KPIs
-python eda_analysis.py
+python src/eda_analysis.py
 
 # Phase 4 — SQL Analytics
-python sql_analytics.py
+python src/sql_analytics.py
 
 # Phase 5 — Machine Learning
-python ml_pipeline.py
+python src/ml_pipeline.py
 
 # Phase 6 — Explainability
-python explainability.py
+python src/explainability.py
 
 # Phase 7+8 — Dashboard (launches browser)
-streamlit run dashboard.py
+streamlit run src/dashboard.py
 
 # Phase 9 — Tests
 python -m pytest tests/ -v
@@ -196,8 +216,8 @@ python -m pytest tests/ -v
 
 ## 🧹 Data Preparation (Phase 2)
 
-**Script:** `data_cleaning.py`
-**Documentation:** `PREPROCESSING_DECISIONS.md`
+**Script:** `src/data_cleaning.py`
+**Documentation:** `reports/PREPROCESSING_DECISIONS.md`
 
 | Step | Action | Impact |
 |---|---|---|
@@ -214,7 +234,7 @@ python -m pytest tests/ -v
 
 ## 📈 EDA & KPIs (Phase 3)
 
-**Script:** `eda_analysis.py` | **Report:** `kpi_report.txt`
+**Script:** `src/eda_analysis.py` | **Report:** `reports/kpi_report.txt`
 
 ### Core KPIs
 
@@ -251,7 +271,7 @@ python -m pytest tests/ -v
 
 ## 🗄️ SQL Analytics (Phase 4)
 
-**Query library:** `hotel_queries.sql` | **Runner:** `sql_analytics.py` | **Engine:** SQLite
+**Query library:** `sql/hotel_queries.sql` | **Runner:** `src/sql_analytics.py` | **Engine:** SQLite
 
 20 annotated queries covering:
 
@@ -272,7 +292,7 @@ All Q01 KPIs cross-validated against Phase 3 results with zero diff.
 
 ## 🤖 Machine Learning (Phase 5)
 
-**Script:** `ml_pipeline.py` | **Report:** `ml_report.txt`
+**Script:** `src/ml_pipeline.py` | **Report:** `reports/ml_report.txt`
 
 Binary classification: predict `is_canceled` at booking time using 31 features.
 
@@ -306,7 +326,7 @@ Binary classification: predict `is_canceled` at booking time using 31 features.
 
 ## 🔬 Model Explainability (Phase 6)
 
-**Script:** `explainability.py` | **Report:** `explainability_report.txt`
+**Script:** `src/explainability.py` | **Report:** `reports/explainability_report.txt`
 
 | Technique | Model | Purpose |
 |---|---|---|
@@ -342,7 +362,7 @@ Binary classification: predict `is_canceled` at booking time using 31 features.
 
 ## 📊 Dashboard (Phases 7 & 8)
 
-**Script:** `dashboard.py` | **Launch:** `streamlit run dashboard.py`
+**Script:** `src/dashboard.py` | **Launch:** `streamlit run src/dashboard.py`
 
 | Tab | Content |
 |---|---|
@@ -360,7 +380,7 @@ Binary classification: predict `is_canceled` at booking time using 31 features.
 
 ## 💡 AI Insights (Phase 8)
 
-**Module:** `ai_insights.py`
+**Module:** `src/ai_insights.py`
 
 ```
 Dashboard tab  →  ai_insights.py  →  validated CSVs (SQL results, SHAP rankings, ML report)

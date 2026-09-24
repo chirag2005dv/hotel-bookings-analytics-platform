@@ -64,8 +64,9 @@ from sklearn.preprocessing import LabelEncoder
 
 warnings.filterwarnings("ignore")
 
-PLOTS_DIR  = Path("plots")
-MODELS_DIR = Path("models")
+ROOT       = Path(__file__).parent.parent
+PLOTS_DIR  = ROOT / "plots"
+MODELS_DIR = ROOT / "models"
 PLOTS_DIR.mkdir(exist_ok=True)
 
 ACCENT     = "#3b82d4"
@@ -80,7 +81,7 @@ print("\n" + "=" * 65)
 print("  SECTION 1 — LOAD DATA & REBUILD FEATURES")
 print("=" * 65)
 
-df = pd.read_csv("hotel_bookings_cleaned.csv")
+df = pd.read_csv(ROOT / "data" / "processed" / "hotel_bookings_cleaned.csv")
 
 NUMERIC_FEATURES = [
     "lead_time", "arrival_date_year", "arrival_month_num",
@@ -583,6 +584,6 @@ safe_report = report_text.encode(sys.stdout.encoding or "utf-8", errors="replace
 )
 print(safe_report)
 
-Path("explainability_report.txt").write_text(report_text, encoding="utf-8")
-print(f"\n  Report saved: explainability_report.txt")
+(ROOT / "reports" / "explainability_report.txt").write_text(report_text, encoding="utf-8")
+print(f"\n  Report saved: reports/explainability_report.txt")
 print("\nPhase 6 Model Explainability complete.")

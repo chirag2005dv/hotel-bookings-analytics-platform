@@ -31,10 +31,11 @@ import pandas as pd
 # CONFIG
 # ---------------------------------------------------------------------------
 
-INPUT_CSV    = "hotel_bookings_cleaned.csv"
-SQL_FILE     = "hotel_queries.sql"
-RESULTS_DIR  = Path("sql_results")
-REPORT_FILE  = "sql_results_report.txt"
+ROOT         = Path(__file__).parent.parent
+INPUT_CSV    = ROOT / "data" / "processed" / "hotel_bookings_cleaned.csv"
+SQL_FILE     = ROOT / "sql" / "hotel_queries.sql"
+RESULTS_DIR  = ROOT / "sql_results"
+REPORT_FILE  = ROOT / "reports" / "sql_results_report.txt"
 
 RESULTS_DIR.mkdir(exist_ok=True)
 
@@ -227,11 +228,11 @@ def main():
 
     # Step 1
     print("\n[1] Loading data into SQLite...")
-    conn = load_to_sqlite(INPUT_CSV)
+    conn = load_to_sqlite(str(INPUT_CSV))
 
     # Step 2
     print("\n[2] Parsing SQL query library...")
-    queries = parse_sql_file(SQL_FILE)
+    queries = parse_sql_file(str(SQL_FILE))
 
     # Step 3
     print("\n[3] Executing queries...")

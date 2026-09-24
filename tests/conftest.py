@@ -70,7 +70,11 @@ def clean_df(raw_df):
     Uses the same steps as data_cleaning.py but operates in-memory.
     """
     import sys
-    sys.path.insert(0, str(__file__).replace("tests/conftest.py", "").replace("tests\\conftest.py", ""))
+    from pathlib import Path
+    # Insert src/ directory so tests can import pipeline modules
+    src_dir = str(Path(__file__).parent.parent / "src")
+    if src_dir not in sys.path:
+        sys.path.insert(0, src_dir)
     from data_cleaning import (
         validate_schema, replace_null_strings, cast_dtypes,
         handle_missing, remove_invalid_rows, flag_outliers, engineer_features,

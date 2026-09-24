@@ -72,8 +72,9 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 
 warnings.filterwarnings("ignore")
 
-PLOTS_DIR  = Path("plots")
-MODELS_DIR = Path("models")
+ROOT       = Path(__file__).parent.parent
+PLOTS_DIR  = ROOT / "plots"
+MODELS_DIR = ROOT / "models"
 PLOTS_DIR.mkdir(exist_ok=True)
 MODELS_DIR.mkdir(exist_ok=True)
 
@@ -88,7 +89,7 @@ print("\n" + "=" * 65)
 print("  SECTION 1 — LOAD DATA")
 print("=" * 65)
 
-df = pd.read_csv("hotel_bookings_cleaned.csv")
+df = pd.read_csv(ROOT / "data" / "processed" / "hotel_bookings_cleaned.csv")
 print(f"  Loaded: {len(df):,} rows × {df.shape[1]} columns")
 print(f"  Class balance — 0: {(df['is_canceled']==0).sum():,}  1: {(df['is_canceled']==1).sum():,}  ({df['is_canceled'].mean():.2%} canceled)")
 
@@ -482,6 +483,6 @@ if importances is not None:
 report_text = "\n".join(report_lines)
 print(report_text)
 
-Path("ml_report.txt").write_text(report_text, encoding="utf-8")
-print(f"\n  Report saved: ml_report.txt")
+(ROOT / "reports" / "ml_report.txt").write_text(report_text, encoding="utf-8")
+print(f"\n  Report saved: reports/ml_report.txt")
 print("\nPhase 5 ML Pipeline complete.")

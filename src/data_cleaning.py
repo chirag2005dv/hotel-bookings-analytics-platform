@@ -5,14 +5,14 @@ Phase 2 — Data Cleaning & Preprocessing Pipeline
 Hotel Bookings Dataset (hotel_bookings.csv)
 
 Preprocessing decisions are documented inline and summarised in
-PREPROCESSING_DECISIONS.md.
+reports/PREPROCESSING_DECISIONS.md.
 
 Usage:
-    python data_cleaning.py
+    python src/data_cleaning.py
 
 Output:
-    hotel_bookings_cleaned.csv   — cleaned dataset
-    cleaning_report.txt          — row-level audit log
+    data/processed/hotel_bookings_cleaned.csv   — cleaned dataset
+    reports/cleaning_report.txt                 — row-level audit log
 """
 
 import sys
@@ -30,9 +30,10 @@ pd.set_option("future.no_silent_downcasting", True)
 # CONFIGURATION
 # ---------------------------------------------------------------------------
 
-INPUT_FILE  = "hotel_bookings.csv"
-OUTPUT_FILE = "hotel_bookings_cleaned.csv"
-REPORT_FILE = "cleaning_report.txt"
+ROOT        = Path(__file__).parent.parent
+INPUT_FILE  = ROOT / "data" / "raw" / "hotel_bookings.csv"
+OUTPUT_FILE = ROOT / "data" / "processed" / "hotel_bookings_cleaned.csv"
+REPORT_FILE = ROOT / "reports" / "cleaning_report.txt"
 
 # ADR cap: values above this are treated as extreme outliers.
 # The single row with ADR=5400 (canceled, Non Refund) is 53× the mean;
@@ -452,11 +453,11 @@ def main():
     df = flag_outliers(df, report)
     df = engineer_features(df, report)
     final_validation(df, report)
-    save_output(df, OUTPUT_FILE, report)
+    save_output(df, str(OUTPUT_FILE), report)
 
     # Write audit report
     report_text = "\n".join(report)
-    Path(REPORT_FILE).write_text(report_text, encoding="utf-8")
+    REPORT_FILE.write_text(report_text, encoding="utf-8")
     print(f"\nAudit report saved: {REPORT_FILE}")
     print("Pipeline complete.")
 

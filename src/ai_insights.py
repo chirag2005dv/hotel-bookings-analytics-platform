@@ -68,10 +68,10 @@ except ImportError:
 # CONFIGURATION
 # ---------------------------------------------------------------------------
 
-BASE           = Path(__file__).parent
+BASE           = Path(__file__).parent.parent
 SQL_DIR        = BASE / "sql_results"
 MODELS_DIR     = BASE / "models"
-ML_REPORT_FILE = BASE / "ml_report.txt"
+ML_REPORT_FILE = BASE / "reports" / "ml_report.txt"
 
 DEFAULT_MODEL   = "gpt-4o-mini"          # cheapest capable model; override via env
 DEFAULT_TIMEOUT = 30                     # seconds

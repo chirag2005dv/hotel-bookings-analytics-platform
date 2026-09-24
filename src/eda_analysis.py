@@ -57,7 +57,8 @@ plt.rcParams.update({
     "axes.facecolor":     "white",
 })
 
-PLOTS_DIR = Path("plots")
+ROOT      = Path(__file__).parent.parent
+PLOTS_DIR = ROOT / "plots"
 PLOTS_DIR.mkdir(exist_ok=True)
 
 # ---------------------------------------------------------------------------
@@ -101,7 +102,7 @@ print("\n" + "=" * 65)
 print("  LOADING DATA")
 print("=" * 65)
 
-df = pd.read_csv("hotel_bookings_cleaned.csv", parse_dates=["arrival_date"])
+df = pd.read_csv(ROOT / "data" / "processed" / "hotel_bookings_cleaned.csv", parse_dates=["arrival_date"])
 df["arrival_date_month"] = pd.Categorical(
     df["arrival_date_month"], categories=MONTH_ORDER, ordered=True
 )
@@ -767,9 +768,9 @@ for c in chart_list:
 report_text = "\n".join(report_lines)
 print(report_text)
 
-with open("kpi_report.txt", "w", encoding="utf-8") as f:
+with open(ROOT / "reports" / "kpi_report.txt", "w", encoding="utf-8") as f:
     f.write(report_text)
 
-print(f"\n  KPI report saved: kpi_report.txt")
+print(f"\n  KPI report saved: reports/kpi_report.txt")
 print(f"  Charts saved:     {len(chart_list)} files in {PLOTS_DIR}/")
 print("\nPhase 3 EDA complete.")

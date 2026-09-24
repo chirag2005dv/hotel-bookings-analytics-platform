@@ -5,7 +5,7 @@ Phase 7 & 8 — Interactive Dashboard + AI Insights
 Hotel Bookings Analytics & ML Platform
 
 Run with:
-    streamlit run dashboard.py
+    streamlit run src/dashboard.py
 
 Tabs
 ----
@@ -18,11 +18,11 @@ Tabs
   7. AI Insights     — GPT-powered natural language analysis of validated metrics
 
 All values loaded dynamically from:
-  - sql_results/*.csv        (pre-computed SQL query outputs)
-  - hotel_bookings_cleaned.csv (raw cleaned data for interactive charts)
-  - models/best_model.pkl    (HistGradientBoosting, ROC-AUC 0.9157)
+  - sql_results/*.csv                    (pre-computed SQL query outputs)
+  - data/processed/hotel_bookings_cleaned.csv (raw cleaned data for interactive charts)
+  - models/best_model.pkl                (HistGradientBoosting, ROC-AUC 0.9157)
   - models/feature_names.txt
-  - plots/                   (static EDA + explainability PNGs)
+  - plots/                               (static EDA + explainability PNGs)
 """
 
 import os
@@ -71,11 +71,11 @@ st.set_page_config(
 # PATHS
 # ---------------------------------------------------------------------------
 
-BASE          = Path(__file__).parent
+BASE          = Path(__file__).parent.parent
 SQL_DIR       = BASE / "sql_results"
 PLOTS_DIR     = BASE / "plots"
 MODELS_DIR    = BASE / "models"
-DATA_FILE     = BASE / "hotel_bookings_cleaned.csv"
+DATA_FILE     = BASE / "data" / "processed" / "hotel_bookings_cleaned.csv"
 
 # ---------------------------------------------------------------------------
 # COLOUR PALETTE
